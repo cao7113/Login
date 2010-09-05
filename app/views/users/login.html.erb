@@ -1,0 +1,29 @@
+<% form_tag "/users/login_check" do%>
+      <table align="center">
+       	<tr>
+       		<td colspan='2' align='center' style="color:red;"><%= flash[:notice] %></td>
+		</tr>
+       	<tr>
+       		<td style='width:20%;'>用户名：</td>
+			<td><%= text_field_tag :name, '', :style=>'width:120px;'%></td>
+		</tr>
+		<tr>
+			<td style='width:20%;'>密码：</td>
+			<td><%= password_field_tag :password, '', :style=>'width:120px;' %></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td >
+				<%= check_box_tag :remind_me, 1 %> 记住我
+			</td>
+		</tr>
+		<tr>
+			<td><%= submit_tag '登录' %></td>
+		</tr>
+		<tr>
+			<td>
+				<%= link_to "首页", "/users/index"%>
+			</td>
+		</tr>
+	  </table>
+	<% end %>	

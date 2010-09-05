@@ -1,0 +1,70 @@
+Source: from 20100121 sina email
+
+一个简单题目，请完成，并将soruce给我，除了图片处理可以使用Rmagick外，勿使用其他现有插件
+
+
+===================================================================================
+users表的字段为：
+name   string   not null
+
+
+pwd    string   not null
+
+
+key    string   not null
+
+
+功能
+新增用户，
+user.key  10位随机生成的数字
+user.pwd md5（input password+user.key)
+并执行login
+
+
+用户登录，有一个“记住我”checkbox 
+根据输入密码+user.key，是否等于user.pwd，判断是否正确用户名、密码
+
+
+正确用户名密码，session[:id]=user.id  session[:name]=user.name
+
+
+如果选择“记住我”
+
+
+cookies[:id]=user.id   cookies[:safe]=md5(user.id+user.key)，并将两个cookies  expire = 30days after
+
+
+===========================================================================================
+
+
+user增加3个字段：
+
+
+mail，string，用户注册时候需要输入mail，mail、name不能为空，必须唯一性
+icon，string，用户头像保存地址，default nil
+state，用户状态，default 100 正常用户，0 无效用户，1000 管理员
+
+
+
+
+
+
+
+
+其他约束条件：
+name.size < 20 ，不能包括@
+pwd.size > 4
+
+
+功能
+登录时，可以使用mail或name登录，根据是否有@，判断是name或mail
+
+
+上传头像功能，上传后保存在/public/images/#{YYYY}/#{mm}/#{dd}/#{user.id}中，如果上传头像尺寸大于48 * 48 ，统一压缩为
+
+
+
+48px * 48px 大小。
+
+
+修改功能：修改name、pwd、mail、icon等功能

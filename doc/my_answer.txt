@@ -1,0 +1,53 @@
+开发环境说明：
+》 平台：    Ruby1.8 + Rails2.3.5
+》 IDE：      RadRails2.0
+》数据库：MySQL5.1
+
+开发步骤：
+》 在RadRails中建立Login工程
+》 安装MySql数据库驱动, gem install mysql
+》 建立对应数据库 rake db:create
+》 建立model和数据库表users 
+  ruby script/generate model User name:string pwd:string key:string
+  rake db:migrate
+》User的Model类上添加非空约束
+  validates_presence_of :name, :pwd, :key
+==================================================
+ 》添加新增用户功能
+ 》User类中添加用户输入密码的虚拟属性raw_pwd
+  attr_accessor :raw_pwd
+ 》生成User对应的Controller
+  ruby script/generate Contoller Users  
+ 》移除public/index.html, 配置routes.rb使默认首页到views/users/index.html.erb  
+ 》新增用户页面new.html.erb，并增添对应的Action方法new和create  
+ 
+ 》增加登录功能
+ 》增加登录页面login.html.erb和对应的action方法login_check，对登录信息进行检查
+ 》登录成功将部分用户信息记入Session，如选中‘记住我’，写客户端cookies，并设置过期时间
+
+特注：以上功能完成后标记为0.1版，无需安装额外插件  
+
+==================================================
+》添加三个字段，利用migrate方式进行数据库迁移
+  ruby script/generate migration add_other_fields
+     编辑生成的迁移文件, 运行数据库迁移rake db:migrate, 将变更更新到数据库users表中
+  ref: http://guides.rubyonrails.org/migrations.html#creating-a-table
+》将其它约束添加到Model类中，并修改部分以前的逻辑
+》修改登录，使之可按name或mail方式登录
+》添加上传头像功能
+     安装ImageMagick和Rmagick插件
+     新增用户时添加图片处理，并加上事务处理，超过规定大小的图片经过统一压缩处理     
+》添加用户信息修改功能（登录后）
+
+备注：以上内容完成后标记为0.2版本，用到了RMagic插件
+               除了功能简单外，需求中提到的要求都能测试通过
+              如有任何问题和建议，请回复到cao7113@hotmail.com, 谢谢！
+
+==================================================
+后期待修正：
+》对name等属性非空的要求可以写在迁移文件中进行约束，添加:null=>false
+》登录时对无效用户进行过滤
+》一些细节可能并未考虑
+》使用partial将new和edit处共有代码抽出
+》更新数据时尝试更方便的方法，因牵扯到校验，注意检验稍微麻烦些
+》如果在后台校验输入密码非空，保存时会引起一些校验的问题，前台做比较好

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	<body>
+		 <p>
+		 	导航： 
+			<%= link_to '新建用户', '/users/new' %> |
+			<%= link_to '用户登录', '/users/login' %>
+			
+			现在时间：<%= Time.now.strftime('%Y-%m-%d %H:%M:%S')%>
+                               目前状态：<%= session[:id].nil? ? '未登录' : "#{session[:name]}已登录"%>
+		   <% if !session[:id].nil? %>
+		      <%= link_to '修改信息', "/users/edit"%>
+		      <%= link_to '退出', "/users/logout"%>
+		   <% end %>  
+		 </p>
+		<hr />
+		
+		<!-- 动态内容区-->
+		<%= yield %>
+	</body>
+</html>

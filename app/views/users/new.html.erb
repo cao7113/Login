@@ -1,0 +1,65 @@
+<% form_for @user, :url => {:controller=>'users', :action => "create"}, 
+                         :html=>{:multipart=>true} do |f| %>
+  	  <table align="center" cellpadding="0" cellspacing="0">
+	  	<tr align="center">
+	  		<td colspan='2'>
+			   新建用户
+			</td>
+		</tr>
+	  	<tr>
+	  		<td colspan='2' style='color:red;'>
+			  <%= f.error_messages %>
+			  <%= flash[:notice] %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				用户名：
+			</td>
+			<td>
+				<%= f.text_field :name %>
+				<span style="color:red;">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				邮箱：
+			</td>
+			<td>
+				<%= f.text_field :mail %>
+				<span style="color:red;">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				密码：
+			</td>
+			<td>
+				<%= f.password_field :raw_pwd %>
+				<span style="color:red;">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				头像：
+			</td>
+			<td>
+				<%= file_field_tag :icon_file, {:contenteditable=>"false"} %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td>
+				<%= f.submit "提交"%>
+				<input type="reset" value="重置" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= link_to "首页", "/users/index"%>
+			</td>
+		</tr>
+	  </table>
+<% end %>

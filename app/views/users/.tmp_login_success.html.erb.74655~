@@ -1,0 +1,10 @@
+<p>祝贺<span style="color:blue;"><%= session[:name] %></span>已经成功登录！</p>
+<% user=User.find_by_id(session[:id]) %>
+<% if !user.icon.nil? %>
+  <p>
+  	头像：<%= image_tag(user.icon[15, user.icon.length], :alt=>user.name)%>
+  </p>
+<% end %>
+<p><%= link_to '修改个人信息', "/users/edit"%></p>
+
+<br/><%= link_to "首页", "/users/index"%>
